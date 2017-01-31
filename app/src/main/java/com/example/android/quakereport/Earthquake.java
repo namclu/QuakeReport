@@ -7,9 +7,9 @@ package com.example.android.quakereport;
 public class Earthquake {
 
     /*
-    * @param mMagnitude the magnitude of the event
-    * @param mLocation the location of the event
-    * @param mDate the date the event tool place
+    * @param mMagnitude the magnitude of the earthquake
+    * @param mLocation the location of the earthquake
+    * @param mDate the date the earthquake took place
     * */
     private double mMagnitude;
     private String mLocation;

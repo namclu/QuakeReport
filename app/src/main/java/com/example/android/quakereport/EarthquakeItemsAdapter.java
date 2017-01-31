@@ -28,14 +28,14 @@ public class EarthquakeItemsAdapter extends ArrayAdapter<Earthquake> {
         // Check if the existing view is being reused, otherwise inflate the view
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(
-                    R.layout.earthquake_item, parent, false);
+                    R.layout.earthquake_list_item, parent, false);
         }
 
         // Get the {@link Earthquake} object located at this position in the list
         Earthquake currentEarthquakeItem = getItem(position);
 
         /*
-         * Find the TextView in the earthquake_item.xml layout with the corresponding ID,
+         * Find the TextView in the earthquake_list_item.xml layout with the corresponding ID,
          * then get the currentEarthquakeItem object's magnitude, location, or date and set the
          * value to the correct view.
          */
