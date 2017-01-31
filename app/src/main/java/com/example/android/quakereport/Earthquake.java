@@ -11,14 +11,14 @@ public class Earthquake {
     * @param mLocation the location of the event
     * @param mDate the date the event tool place
     * */
-    private int mMagnitude;
+    private double mMagnitude;
     private String mLocation;
     private String mDate;
 
     /*
     * Creates a new Earthquake object and give it a magnitude, location and date
     * */
-    public Earthquake(int magnitude, String location, String date) {
+    public Earthquake(double magnitude, String location, String date) {
         setMagnitude(magnitude);
         setLocation(location);
         setDate(date);
@@ -28,11 +28,11 @@ public class Earthquake {
     * Getters and setter methods
     * */
 
-    public int getMagnitude() {
+    public double getMagnitude() {
         return mMagnitude;
     }
 
-    public void setMagnitude(int magnitude) {
+    public void setMagnitude(double magnitude) {
         mMagnitude = magnitude;
     }
 
