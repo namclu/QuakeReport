@@ -13,12 +13,12 @@ public class Earthquake {
     * */
     private double mMagnitude;
     private String mLocation;
-    private String mDate;
+    private int mDate;
 
     /*
     * Creates a new Earthquake object and give it a magnitude, location and date
     * */
-    public Earthquake(double magnitude, String location, String date) {
+    public Earthquake(double magnitude, String location, int date) {
         setMagnitude(magnitude);
         setLocation(location);
         setDate(date);
@@ -44,11 +44,11 @@ public class Earthquake {
         mLocation = location;
     }
 
-    public String getDate() {
+    public int getDate() {
         return mDate;
     }
 
-    public void setDate(String date) {
+    public void setDate(int date) {
         mDate = date;
     }
 }
