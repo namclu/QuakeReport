@@ -47,6 +47,7 @@ public class EarthquakeItemsAdapter extends ArrayAdapter<Earthquake> {
         TextView locationTextView = (TextView) convertView.findViewById(R.id.text_earthquake_location);
         locationTextView.setText(currentEarthquakeItem.getLocation());
 
+        // Create a Date object using the time (in milliseconds) of the current Earthquake object
         Date dateObj = new Date(currentEarthquakeItem.getTimeInMills());
 
         // Find TextView with view ID text_earthquake_date
