@@ -65,10 +65,10 @@ public final class QueryUtils {
                 // Extract each of the required values using they key values
                 int magnitude = properties.getInt("mag");
                 String location = properties.getString("place");
-                int time = properties.getInt("time");
+                int timeInMills = properties.getInt("time");
 
                 // Add earthquake object to the list of earthquakes
-                earthquakes.add(new Earthquake(magnitude, location, time));
+                earthquakes.add(new Earthquake(magnitude, location, timeInMills));
             }
 
         } catch (JSONException e) {

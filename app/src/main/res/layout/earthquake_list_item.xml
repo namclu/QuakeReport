@@ -27,4 +27,11 @@
         android:layout_weight="1"
         tools:text="Jan 1, 2000"/>
 
+    <TextView
+        android:id="@+id/text_earthquake_time"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        tools:text="1:00 PM"/>
+
 </LinearLayout>
