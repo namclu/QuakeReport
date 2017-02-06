@@ -44,7 +44,13 @@ public class EarthquakeItemsAdapter extends ArrayAdapter<Earthquake> {
         TextView magnitudeTextView = (TextView) convertView.findViewById(R.id.text_earthquake_mag);
         magnitudeTextView.setText(Double.toString(currentEarthquakeItem.getMagnitude()));
 
-        TextView locationTextView = (TextView) convertView.findViewById(R.id.text_earthquake_location);
+        // Get the location offset of where quake occurred, which may include distance from primary location
+        // and its direction away from location_primary
+        TextView offsetTextView = (TextView) convertView.findViewById(R.id.text_earthquake_location_offset);
+        offsetTextView.setText(currentEarthquakeItem.getLocation());
+
+        // Get the location primary of where quake occurred, which includes the city and country
+        TextView locationTextView = (TextView) convertView.findViewById(R.id.text_earthquake_location_primary);
         locationTextView.setText(currentEarthquakeItem.getLocation());
 
         // Create a Date object using the time (in milliseconds) of the current Earthquake object

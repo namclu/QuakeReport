@@ -14,7 +14,14 @@
         tools:text="1.0"/>
 
     <TextView
-        android:id="@+id/text_earthquake_location"
+        android:id="@+id/text_earthquake_location_offset"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        tools:text="20km NW of"/>
+
+    <TextView
+        android:id="@+id/text_earthquake_location_primary"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
