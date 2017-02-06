@@ -22,9 +22,6 @@ public class EarthquakeItemsAdapter extends ArrayAdapter<Earthquake> {
 
     private static final String LOCATION_SEPARATOR = "of";
 
-    private String primaryLocation;
-    private String offsetLocation;
-
     public EarthquakeItemsAdapter(Context context, int resource, List<Earthquake> objects) {
         super(context, resource, objects);
     }
@@ -52,25 +49,22 @@ public class EarthquakeItemsAdapter extends ArrayAdapter<Earthquake> {
         magnitudeTextView.setText(Double.toString(currentEarthquakeItem.getMagnitude()));
 
         /* Location */
+        // Get references for both the location_offset and location_primary from earthquake_list_item.xml
+        TextView offsetTextView = (TextView) convertView.findViewById(R.id.text_earthquake_location_offset);
+        TextView locationTextView = (TextView) convertView.findViewById(R.id.text_earthquake_location_primary);
+
         // If the location contains an "of" within, then split the location into its offset
         // (e.g. "10km  NW of") and primary (e.g. "Tokyo, Japan")
         // Set the offset location of where the quake occurred (i.e. 70km NW of). If there isn't
         // an offset, then set the offset location to "near the"
         if (currentEarthquakeItem.getLocation().contains(LOCATION_SEPARATOR)) {
             String[] originalLocation = currentEarthquakeItem.getLocation().split(LOCATION_SEPARATOR);
-            offsetLocation = originalLocation[0] + LOCATION_SEPARATOR;
-            primaryLocation = originalLocation[1];
+            offsetTextView.setText(originalLocation[0] + LOCATION_SEPARATOR);
+            locationTextView.setText(originalLocation[1]);
         } else {
-            offsetLocation = getContext().getString(R.string.near_the);
-            primaryLocation = currentEarthquakeItem.getLocation();
+            offsetTextView.setText(getContext().getString(R.string.near_the));
+            locationTextView.setText(currentEarthquakeItem.getLocation());
         }
-
-        // Get references for both the location_offset and location_primary from earthquake_list_item.xml
-        TextView offsetTextView = (TextView) convertView.findViewById(R.id.text_earthquake_location_offset);
-        offsetTextView.setText(offsetLocation);
-
-        TextView locationTextView = (TextView) convertView.findViewById(R.id.text_earthquake_location_primary);
-        locationTextView.setText(primaryLocation);
 
         /* Date and Time */
         // Create a Date object using the time (in milliseconds) of the current Earthquake object
