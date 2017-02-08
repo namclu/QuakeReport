@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:tools="http://schemas.android.com/tools"
-              android:orientation="horizontal"
               android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              style="@style/EarthquakeItem">
+              android:layout_height="?android:attr/listPreferredItemHeight"
+              android:orientation="horizontal"
+              android:paddingEnd="16dp"
+              android:paddingLeft="16dp"
+              android:paddingRight="16dp"
+              android:paddingStart="16dp">
 
     <TextView
         android:id="@+id/text_earthquake_mag"
@@ -12,33 +15,65 @@
         style="@style/Magnitude"
         tools:text="1.0"/>
 
-    <TextView
-        android:id="@+id/text_earthquake_location_offset"
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/text_earthquake_location_offset"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-medium"
+            android:maxLines="1"
+            android:textAllCaps="true"
+            android:textColor="@color/textColorEarthquakeDetails"
+            android:textSize="12sp"
+            tools:text="20km NW of"/>
+
+        <TextView
+            android:id="@+id/text_earthquake_location_primary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textColor="@color/textColorEarthquakeLocation"
+            android:textSize="16sp"
+            tools:text="Long placeholder location that should wrap to more than 2 lines of text"/>
+
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
         android:layout_marginLeft="16dp"
-        android:layout_weight="1"
-        tools:text="20km NW of"/>
+        android:layout_marginStart="16dp"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/text_earthquake_location_primary"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        tools:text="Gotham City"/>
+        <TextView
+            android:id="@+id/text_earthquake_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:textColor="@color/textColorEarthquakeDetails"
+            android:textSize="12sp"
+            tools:text="Jan 1, 2000"/>
 
-    <TextView
-        android:id="@+id/text_earthquake_date"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        tools:text="Jan 1, 2000"/>
+        <TextView
+            android:id="@+id/text_earthquake_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:textColor="@color/textColorEarthquakeDetails"
+            android:textSize="12sp"
+            tools:text="1:00 PM"/>
 
-    <TextView
-        android:id="@+id/text_earthquake_time"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        tools:text="1:00 PM"/>
+    </LinearLayout>
 
 </LinearLayout>
