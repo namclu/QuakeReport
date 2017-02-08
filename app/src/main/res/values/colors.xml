@@ -23,28 +23,28 @@
     <!-- Accent color of the app -->
     <color name="colorAccent">#10CAC9</color>
 
-    <!-- Color for an earthquake with magnitude 0 and 2 -->
+    <!-- Color for an earthquake with magnitude 0 and 1.9 -->
     <color name="magnitude1">#4A7BA7</color>
 
-    <!-- Magnitude circle color for an earthquake with magnitude between 2 and 3 -->
+    <!-- Magnitude circle color for an earthquake with magnitude between 2 and 2.9 -->
     <color name="magnitude2">#04B4B3</color>
 
-    <!-- Magnitude circle color for an earthquake with magnitude between 3 and 4 -->
+    <!-- Magnitude circle color for an earthquake with magnitude between 3 and 3.9 -->
     <color name="magnitude3">#10CAC9</color>
 
-    <!-- Magnitude circle color for an earthquake with magnitude between 4 and 5 -->
+    <!-- Magnitude circle color for an earthquake with magnitude between 4 and 4.9 -->
     <color name="magnitude4">#F5A623</color>
 
-    <!-- Magnitude circle color for an earthquake with magnitude between 5 and 6 -->
+    <!-- Magnitude circle color for an earthquake with magnitude between 5 and 5.9 -->
     <color name="magnitude5">#FF7D50</color>
 
-    <!-- Magnitude circle color for an earthquake with magnitude between 6 and 7 -->
+    <!-- Magnitude circle color for an earthquake with magnitude between 6 and 6.9 -->
     <color name="magnitude6">#FC6644</color>
 
-    <!-- Magnitude circle color for an earthquake with magnitude between 7 and 8 -->
+    <!-- Magnitude circle color for an earthquake with magnitude between 7 and 7.9 -->
     <color name="magnitude7">#E75F40</color>
 
-    <!-- Magnitude circle color for an earthquake with magnitude between 8 and 9 -->
+    <!-- Magnitude circle color for an earthquake with magnitude between 8 and 8.9 -->
     <color name="magnitude8">#E13A20</color>
 
     <!-- Magnitude circle color for an earthquake with magnitude between 9 and 10 -->
