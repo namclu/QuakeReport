@@ -15,13 +15,17 @@
  */
 package com.example.android.quakereport;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 
-public class EarthquakeActivity extends AppCompatActivity {
+public class EarthquakeActivity extends AppCompatActivity implements AdapterView.OnItemClickListener{
 
     public static final String LOG_TAG = EarthquakeActivity.class.getName();
 
@@ -36,14 +40,25 @@ public class EarthquakeActivity extends AppCompatActivity {
         // Find a reference to the {@link ListView} in the layout
         ListView earthquakeListView = (ListView) findViewById(R.id.list_earthquake);
 
+        // Set OnItemClickListener onto the earthquake ListView
+        earthquakeListView.setOnItemClickListener(this);
+
         // Create a new {@link ArrayAdapter} of earthquakes
         EarthquakeItemsAdapter adapter = new EarthquakeItemsAdapter(
                 this, R.layout.earthquake_list_item, earthquakes);
-        /*ArrayAdapter<Earthquake> adapter = new ArrayAdapter<>(
-                this, R.layout.earthquake_list_item, earthquakes);*/
 
         // Set the adapter on the {@link ListView}
         // so the list can be populated in the user interface
         earthquakeListView.setAdapter(adapter);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        String url = "http://www.google.com";
+        Intent intent = new Intent(Intent.ACTION_VIEW).setData(Uri.parse(url));
+
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }
     }
 }

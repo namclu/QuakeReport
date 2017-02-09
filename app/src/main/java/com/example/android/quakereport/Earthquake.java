@@ -14,6 +14,7 @@ public class Earthquake {
     private double mMagnitude;
     private String mLocation;
     private long mTimeInMills;
+    private String mUrl;
 
     /*
     * Constructs a new {@link Earthquake} object and initialize it w/ a magnitude, location and time
@@ -22,6 +23,17 @@ public class Earthquake {
         setMagnitude(magnitude);
         setLocation(location);
         setTimeInMills(timeInMills);
+    }
+
+    /*
+    * Constructs a new {@link Earthquake} object and initialize it w/ a magnitude, location, time,
+    * and a URL
+    * */
+    public Earthquake(double magnitude, String location, long timeInMills, String url) {
+        setMagnitude(magnitude);
+        setLocation(location);
+        setTimeInMills(timeInMills);
+        setUrl(url);
     }
 
     /*
@@ -50,6 +62,14 @@ public class Earthquake {
 
     public void setTimeInMills(long timeInMills) {
         mTimeInMills = timeInMills;
+    }
+
+    public String getUrl() {
+        return mUrl;
+    }
+
+    public void setUrl(String url) {
+        mUrl = url;
     }
 }
 
