@@ -66,9 +66,10 @@ public final class QueryUtils {
                 double magnitude = properties.getDouble("mag");
                 String location = properties.getString("place");
                 int timeInMills = properties.getInt("time");
+                String url = properties.getString("url");
 
                 // Add earthquake object to the list of earthquakes
-                earthquakes.add(new Earthquake(magnitude, location, timeInMills));
+                earthquakes.add(new Earthquake(magnitude, location, timeInMills, url));
             }
 
         } catch (JSONException e) {
