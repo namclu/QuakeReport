@@ -25,7 +25,7 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
-public class EarthquakeActivity extends AppCompatActivity implements AdapterView.OnItemClickListener{
+public class EarthquakeActivity extends AppCompatActivity{
 
     public static final String LOG_TAG = EarthquakeActivity.class.getName();
 
@@ -40,25 +40,32 @@ public class EarthquakeActivity extends AppCompatActivity implements AdapterView
         // Find a reference to the {@link ListView} in the layout
         ListView earthquakeListView = (ListView) findViewById(R.id.list_earthquake);
 
-        // Set OnItemClickListener onto the earthquake ListView
-        earthquakeListView.setOnItemClickListener(this);
-
         // Create a new {@link ArrayAdapter} of earthquakes
-        EarthquakeItemsAdapter adapter = new EarthquakeItemsAdapter(
+        final EarthquakeItemsAdapter adapter = new EarthquakeItemsAdapter(
                 this, R.layout.earthquake_list_item, earthquakes);
 
         // Set the adapter on the {@link ListView}
         // so the list can be populated in the user interface
         earthquakeListView.setAdapter(adapter);
-    }
 
-    @Override
-    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        String url = "http://www.google.com";
-        Intent intent = new Intent(Intent.ACTION_VIEW).setData(Uri.parse(url));
+        // Set OnItemClickListener onto the earthquake list item to open URL of the quake event
+        earthquakeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                // Get the current Earthquake item that was clicked on
+                Earthquake currentEarthquakeItem = adapter.getItem(position);
 
-        if (intent.resolveActivity(getPackageManager()) != null) {
-            startActivity(intent);
-        }
+                // Get URL of the current Earthquake object
+                String url = currentEarthquakeItem.getUrl();
+
+                // Create a new Intent to view Earthquake URL
+                Intent intent = new Intent(Intent.ACTION_VIEW).setData(Uri.parse(url));
+
+                // Send Intent to launch a new activity
+                if (intent.resolveActivity(getPackageManager()) != null) {
+                    startActivity(intent);
+                }
+            }
+        });
     }
 }

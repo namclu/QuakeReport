@@ -10,6 +10,7 @@ public class Earthquake {
     * @param mMagnitude the magnitude of the earthquake
     * @param mLocation the location of the earthquake
     * @param mTimeInMills the time (in Milliseconds) of when the earthquake took place
+    * @param mUrl the website URL to get more details about the earthquake event
     * */
     private double mMagnitude;
     private String mLocation;
@@ -27,7 +28,7 @@ public class Earthquake {
 
     /*
     * Constructs a new {@link Earthquake} object and initialize it w/ a magnitude, location, time,
-    * and a URL
+    * and URL
     * */
     public Earthquake(double magnitude, String location, long timeInMills, String url) {
         setMagnitude(magnitude);
