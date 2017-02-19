@@ -53,10 +53,10 @@ public final class QueryUtils {
             Log.e(LOG_TAG, "Error obtaining JSON response.", e);
         }
 
-        // Extract relevant fields from the JSON response and create an {@link Earthquake} object
+        // Extract relevant fields from the JSON response and create a List of {@link Earthquake}
         List<Earthquake> earthquakes = extractEarthquakesFromJson(jsonResponse);
 
-        // Return the {@link Earthquake}
+        // Return the List of {@link Earthquake}
         return earthquakes;
     }
 
@@ -166,7 +166,7 @@ public final class QueryUtils {
             JSONObject earthquakeObject = new JSONObject(earthquakeJSON);
             JSONArray featuresArray = earthquakeObject.getJSONArray("features");
 
-            // If there are results in the JSONArray
+            // If there are results in the JSONArray, then continue
             if (featuresArray.length() > 0) {
 
                 // For each earthquake in JSONArray, create an {@link Earthquake} object and add it to
@@ -184,61 +184,14 @@ public final class QueryUtils {
                     long timeInMills = properties.getLong("time");
                     String url = properties.getString("url");
 
-                    // Add a {@link Earthquake} quake object to the list earthquakes
+                    // Add a {@link Earthquake} object to the list earthquakes
                     earthquakes.add(new Earthquake(magnitude, location, timeInMills, url));
                 }
             }
         } catch (JSONException e) {
             Log.e(LOG_TAG, "Problem parsing the earthquake JSON results", e);
         }
-        // Return a list of {@link Earthquakes}
+        // Return a list of {@link Earthquake}
         return earthquakes;
     }
-
-
-    /**
-     * Return a list of {@link Earthquake} objects that has been built up from
-     * parsing a JSON response.
-     */
-    /*public static ArrayList<Earthquake> extractEarthquakes() {
-
-        // Create an empty ArrayList that we can start adding earthquakes to
-        ArrayList<Earthquake> earthquakes = new ArrayList<>();
-
-        // Try to parse the SAMPLE_JSON_RESPONSE. If there's a problem with the way the JSON
-        // is formatted, a JSONException exception object will be thrown.
-        // Catch the exception so the app doesn't crash, and print the error message to the logs.
-        try {
-
-            // Parse the response given by the SAMPLE_JSON_RESPONSE string and
-            // build up a list of Earthquake objects with the corresponding data.
-            JSONObject jsonObject = new JSONObject(SAMPLE_JSON_RESPONSE);
-            JSONArray featuresArray = jsonObject.getJSONArray("features");
-
-            // For each earthquake in JSONArray, create an {@link Earthquake} object and add it to
-            // the earthquakes ArrayList.
-            for (int i = 0; i < featuresArray.length(); i++) {
-                JSONObject earthquake = featuresArray.getJSONObject(i);
-                JSONObject properties = earthquake.getJSONObject("properties");
-
-                // Extract each of the required values using their key values
-                double magnitude = properties.getDouble("mag");
-                String location = properties.getString("place");
-                int timeInMills = properties.getInt("time");
-                String url = properties.getString("url");
-
-                // Add earthquake object to the list of earthquakes
-                earthquakes.add(new Earthquake(magnitude, location, timeInMills, url));
-            }
-
-        } catch (JSONException e) {
-            // If an error is thrown when executing any of the above statements in the "try" block,
-            // catch the exception here, so the app doesn't crash. Print a log message
-            // with the message from the exception.
-            Log.e("QueryUtils", "Problem parsing the earthquake JSON results", e);
-        }
-
-        // Return the list of earthquakes
-        return earthquakes;
-    }*/
 }

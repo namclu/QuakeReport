@@ -97,7 +97,7 @@ public class EarthquakeActivity extends AppCompatActivity{
             // Clear the adapter of previous earthquake data
             mAdapter.clear();
 
-            // If there is a valid list of {@link Earthquake}s, then add them to the adapter's
+            // If there is a valid List of {@link Earthquake}s, then add them to the adapter's
             // data set. This will trigger the ListView to update.
             mAdapter.addAll(earthquakeData);
         }
