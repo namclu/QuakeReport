@@ -15,9 +15,10 @@
  */
 package com.example.android.quakereport;
 
+import android.app.LoaderManager;
 import android.content.Intent;
+import android.content.Loader;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -27,7 +28,8 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EarthquakeActivity extends AppCompatActivity{
+public class EarthquakeActivity extends AppCompatActivity
+        implements LoaderManager.LoaderCallbacks<List<Earthquake>> {
 
     /** URL for earthquake data from the USGS dataset */
     private static final String USGS_REQUEST_URL =
@@ -51,8 +53,10 @@ public class EarthquakeActivity extends AppCompatActivity{
         // Set the adapter on the {@link ListView} so the list can be populated in the user interface
         earthquakeListView.setAdapter(mAdapter);
 
-        // Start the AsyncTask to fetch the earthquake data
-        new EarthquakeAsyncTask().execute(USGS_REQUEST_URL);
+        // Initialize the loader. Pass in the int ID constant defined above and pass in null for
+        // the bundle. Pass in this activity for the LoaderCallbacks parameter (which is valid
+        // because this activity implements the LoaderCallbacks interface).
+        getLoaderManager().initLoader(1, null, this).forceLoad();
 
         // Set OnItemClickListener onto the earthquake list item to open URL of the quake event
         earthquakeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -76,30 +80,33 @@ public class EarthquakeActivity extends AppCompatActivity{
     }
 
     /*
-    * AsyncTask class that performs the HTTP request for earthquake data and processes the
-    * response on a background thread and updates the UI with the first earthquake from the event
-    */
-    private class EarthquakeAsyncTask extends AsyncTask<String, Void, List<Earthquake>> {
+     * called when the system needs a new loader to be created. Your code should create a Loader
+     * object and return it to the system.
+     */
+    @Override
+    public Loader<List<Earthquake>> onCreateLoader(int i, Bundle bundle) {
+        return new EarthquakeLoader(EarthquakeActivity.this, USGS_REQUEST_URL);
+    }
 
-        @Override
-        protected List<Earthquake> doInBackground(String... urls) {
+    /*
+     * called when a loader has finished loading data. Typically, your code should display
+     * the data to the user.
+     */
+    @Override
+    public void onLoadFinished(Loader<List<Earthquake>> loader, List<Earthquake> earthquakeData) {
+        // Clear the adapter of previous earthquake data
+        mAdapter.clear();
 
-            // Submit task only if array has at least 1 entry or first entry is not null
-            if (urls.length < 1 || urls[0] == null) {
-                return null;
-            }
-
-            return QueryUtils.fetchEarthquakeData(urls[0]);
-        }
-
-        @Override
-        protected void onPostExecute(List<Earthquake> earthquakeData) {
-            // Clear the adapter of previous earthquake data
-            mAdapter.clear();
-
-            // If there is a valid List of {@link Earthquake}s, then add them to the adapter's
-            // data set. This will trigger the ListView to update.
+        // If there is a valid List of {@link Earthquake}s, then add them to the adapter's
+        // data set. This will trigger the ListView to update.
+        if (earthquakeData != null && !earthquakeData.isEmpty()) {
             mAdapter.addAll(earthquakeData);
         }
+    }
+
+    @Override
+    public void onLoaderReset(Loader<List<Earthquake>> loader) {
+        // Loader reset, so we can clear out our existing data.
+        mAdapter.clear();
     }
 }
