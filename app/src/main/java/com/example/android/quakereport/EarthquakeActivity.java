@@ -24,6 +24,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -106,6 +107,9 @@ public class EarthquakeActivity extends AppCompatActivity
      */
     @Override
     public void onLoadFinished(Loader<List<Earthquake>> loader, List<Earthquake> earthquakeData) {
+        // Create a reference to the ProgressBar
+        ProgressBar progressBar = (ProgressBar) findViewById(R.id.progress_bar_spinner);
+
         // Clear the adapter of previous earthquake data
         mAdapter.clear();
 
@@ -116,6 +120,9 @@ public class EarthquakeActivity extends AppCompatActivity
         }
         // Set empty state text to display text only after ListView has had a chance to load.
         mEmptyStateTextView.setText(R.string.no_earthquakes_found);
+
+        // After loading is complete, set progress bar visibility to GONE
+        progressBar.setVisibility(View.GONE);
     }
 
     @Override
