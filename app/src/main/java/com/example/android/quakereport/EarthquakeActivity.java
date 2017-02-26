@@ -21,6 +21,7 @@ import android.content.Loader;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -57,6 +58,7 @@ public class EarthquakeActivity extends AppCompatActivity
         // the bundle. Pass in this activity for the LoaderCallbacks parameter (which is valid
         // because this activity implements the LoaderCallbacks interface).
         getLoaderManager().initLoader(1, null, this).forceLoad();
+        Log.v(LOG_TAG, "inside onCreate(), after initLoader() called");
 
         // Set OnItemClickListener onto the earthquake list item to open URL of the quake event
         earthquakeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -85,6 +87,8 @@ public class EarthquakeActivity extends AppCompatActivity
      */
     @Override
     public Loader<List<Earthquake>> onCreateLoader(int i, Bundle bundle) {
+        Log.v(LOG_TAG, "inside onCreateLoader(int, Bundle)");
+
         return new EarthquakeLoader(EarthquakeActivity.this, USGS_REQUEST_URL);
     }
 
@@ -94,6 +98,8 @@ public class EarthquakeActivity extends AppCompatActivity
      */
     @Override
     public void onLoadFinished(Loader<List<Earthquake>> loader, List<Earthquake> earthquakeData) {
+        Log.v(LOG_TAG, "inside onLoadFinished()");
+
         // Clear the adapter of previous earthquake data
         mAdapter.clear();
 
@@ -106,6 +112,8 @@ public class EarthquakeActivity extends AppCompatActivity
 
     @Override
     public void onLoaderReset(Loader<List<Earthquake>> loader) {
+        Log.v(LOG_TAG, "inside onLoaderReset()");
+
         // Loader reset, so we can clear out our existing data.
         mAdapter.clear();
     }
