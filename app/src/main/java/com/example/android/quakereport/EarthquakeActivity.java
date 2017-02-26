@@ -24,6 +24,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,19 +40,30 @@ public class EarthquakeActivity extends AppCompatActivity
 
     private EarthquakeItemsAdapter mAdapter;
 
+    // Find a reference to the {@link ListView} in the layout
+    private ListView mEarthquakeListView;
+
+    // Find a reference to the {@link TextView} in the layout
+    private TextView mEmptyStateTextView;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.earthquake_activity);
 
-        // Find a reference to the {@link ListView} in the layout
-        ListView earthquakeListView = (ListView) findViewById(R.id.list_earthquake);
+        // Initialize Views in the layout
+        mEarthquakeListView = (ListView) findViewById(R.id.list_earthquake);
+        mEmptyStateTextView = (TextView) findViewById(R.id.text_empty_view);
 
         // Create a new adapter that takes an empty list of earthquakes as input
         mAdapter = new EarthquakeItemsAdapter(this, R.layout.earthquake_list_item, new ArrayList());
 
         // Set the adapter on the {@link ListView} so the list can be populated in the user interface
-        earthquakeListView.setAdapter(mAdapter);
+        mEarthquakeListView.setAdapter(mAdapter);
+
+        // Display setEmptyView only if the ListView is empty
+        mEarthquakeListView.setEmptyView(mEmptyStateTextView);
 
         // Initialize the loader. Pass in the int ID constant defined above and pass in null for
         // the bundle. Pass in this activity for the LoaderCallbacks parameter (which is valid
@@ -59,7 +71,7 @@ public class EarthquakeActivity extends AppCompatActivity
         getLoaderManager().initLoader(1, null, this).forceLoad();
 
         // Set OnItemClickListener onto the earthquake list item to open URL of the quake event
-        earthquakeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mEarthquakeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 // Get the current Earthquake item that was clicked on
@@ -102,6 +114,8 @@ public class EarthquakeActivity extends AppCompatActivity
         if (earthquakeData != null && !earthquakeData.isEmpty()) {
             mAdapter.addAll(earthquakeData);
         }
+        // Set empty state text to display text only after ListView has had a chance to load.
+        mEmptyStateTextView.setText(R.string.no_earthquakes_found);
     }
 
     @Override
