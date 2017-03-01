@@ -16,11 +16,15 @@
 package com.example.android.quakereport;
 
 import android.app.LoaderManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -47,6 +51,9 @@ public class EarthquakeActivity extends AppCompatActivity
     // Find a reference to the {@link TextView} in the layout
     private TextView mEmptyStateTextView;
 
+    // Create a reference to the ProgressBar
+    private ProgressBar mProgressBar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +63,7 @@ public class EarthquakeActivity extends AppCompatActivity
         // Initialize Views in the layout
         mEarthquakeListView = (ListView) findViewById(R.id.list_earthquake);
         mEmptyStateTextView = (TextView) findViewById(R.id.text_empty_view);
+        mProgressBar = (ProgressBar) findViewById(R.id.progress_bar_spinner);
 
         // Create a new adapter that takes an empty list of earthquakes as input
         mAdapter = new EarthquakeItemsAdapter(this, R.layout.earthquake_list_item, new ArrayList());
@@ -66,10 +74,30 @@ public class EarthquakeActivity extends AppCompatActivity
         // Display setEmptyView only if the ListView is empty
         mEarthquakeListView.setEmptyView(mEmptyStateTextView);
 
-        // Initialize the loader. Pass in the int ID constant defined above and pass in null for
-        // the bundle. Pass in this activity for the LoaderCallbacks parameter (which is valid
-        // because this activity implements the LoaderCallbacks interface).
-        getLoaderManager().initLoader(1, null, this).forceLoad();
+        //Check for network connectivity
+        try{
+            // Get a reference to the ConnectivityManager to check state of network connectivity
+            ConnectivityManager connectivityManager =
+                    (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+
+            // Get details on the currently active default data network
+            NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+
+            // If there is a network connection, fetch data
+            if (networkInfo != null && networkInfo.isConnectedOrConnecting()) {
+                // Initialize the loader. Pass in the int ID constant defined above and pass in null for
+                // the bundle. Pass in this activity for the LoaderCallbacks parameter (which is valid
+                // because this activity implements the LoaderCallbacks interface).
+                getLoaderManager().initLoader(1, null, this).forceLoad();
+            } else{
+                // Otherwise, display no internet connection text
+                // First, hide loading indicator so error message will be visible
+                mEmptyStateTextView.setText(R.string.no_internet_connection);
+                mProgressBar.setVisibility(View.GONE);
+            }
+        } catch (Exception e){
+            Log.e(LOG_TAG, "Error w internet connection");
+        }
 
         // Set OnItemClickListener onto the earthquake list item to open URL of the quake event
         mEarthquakeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -107,8 +135,6 @@ public class EarthquakeActivity extends AppCompatActivity
      */
     @Override
     public void onLoadFinished(Loader<List<Earthquake>> loader, List<Earthquake> earthquakeData) {
-        // Create a reference to the ProgressBar
-        ProgressBar progressBar = (ProgressBar) findViewById(R.id.progress_bar_spinner);
 
         // Clear the adapter of previous earthquake data
         mAdapter.clear();
@@ -122,7 +148,7 @@ public class EarthquakeActivity extends AppCompatActivity
         mEmptyStateTextView.setText(R.string.no_earthquakes_found);
 
         // After loading is complete, set progress bar visibility to GONE
-        progressBar.setVisibility(View.GONE);
+        mProgressBar.setVisibility(View.GONE);
     }
 
     @Override
